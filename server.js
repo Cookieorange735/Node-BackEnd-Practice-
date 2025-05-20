@@ -34,23 +34,13 @@ app.get('/hello', (req, res) => {
     res.render('hello');
 })
 
-app.get('/todos', (req, res) => {
-    // 第二個參數可傳入資料
-    res.render('todos', {
-        todos     // todos: todos 一樣的話可省略寫法
-    })
-})
+const todoController = require('./controllers/todo')
 
-app.get('/todos/:id', (req, res) => {
-  // params: 可拿到網址列上指定的參數
-    const id = req.params.id
-    const todo = todos[id]
-    res.render('todo', {
-        todo,
-    })
-})
+app.get('/todos', todoController.getAll)
+
+app.get('/todos/:id', todoController.get)
 
 app.listen(port, () => {
-    console.log(`Esample app listening on port ${port}!!!`)
+    console.log(`Example app listening on port ${port}!!!`)
 })
 
